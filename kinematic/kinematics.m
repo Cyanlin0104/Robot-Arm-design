@@ -1,27 +1,9 @@
-function kinematics(dof, JointAngle, DH_table)
-%% 【 Step １】 定義手臂自由度與DH連桿參數表與齊次轉換函數
-        % 手臂的自由度
-
-        % 手臂的各軸長度        
-%% 【 Step 2 】 計算逆運動學
-          %InverseKinematics() 
-%% 【 Step 3 】 計算正運動學        
-        % DH 參數表        -->  % 建立DHparameter( )          
-        % 產生齊次轉換函數  -->   % 建立GenerateTransformationMatrices( )
-%        ForwardKinematics(dof,JointAngle,Positions, DH_table)
-%% 【 Step 4 】 繪製手臂
+function kinematics(link_length, dof, target_point, DH_table)
+        JointAngle = InverseKinematics(link_length,target_point)
         pos = ForwardKinematics(dof, JointAngle, DH_table);
-        DrawRobotManipulator(dof, pos)  
+        DrawRobotManipulator(link_length, dof, pos)  
 end
 
-% =========================================================================
-%                              【Functions】 
-% =========================================================================
-%%  DH 參數表
-function  DH_table = DHparameter()
-% 三軸的 DH 參數 [ a      α        d       θ ]
-end
-%%  齊次轉換矩陣
 function  [A] = GenerateTransformationMatrices(theta, DH_params)
     a_dh = DH_params(1);
     d_dh = DH_params(3);
@@ -38,7 +20,7 @@ function  [A] = GenerateTransformationMatrices(theta, DH_params)
             0        0               0                1          ];
     
 end
-%% 正運動學
+
 function  [Pos] = ForwardKinematics(dof, JointAngle, DH_table)
     T = eye(4);
     Pos = zeros(3, dof + 1);
@@ -48,21 +30,38 @@ function  [Pos] = ForwardKinematics(dof, JointAngle, DH_table)
         DH_params = DH_table(i, :);
         A = GenerateTransformationMatrices(jointAngle, DH_params);
         T = T * A;
-        Pos(:, i+1) = T(1:3, 4) 
+        Pos(:, i+1) = T(1:3, 4)
     end
 
 end
-%% 逆運動學
-function  InverseKinematics()
+
+function  JointAngle = InverseKinematics(link_length, target_point)
+xc = target_point(1)
+yc = target_point(2)
+zc = target_point(3)
+L1 = link_length(1)
+L2 = link_length(2)
+L3 = link_length(3)
+theta1 = atan2(yc,xc)
+cthetaD = (L2^2 + L3^2 - (xc^2 + yc^2) - (zc - L1)^2) / (2*L2*L3)
+theta3 =  acos(cthetaD) - pi;
+theta2 = atan2(zc-L1,sqrt(xc^2 + yc^2)) - atan2(L3*sin(theta3),L2+L3*cos(theta3));
+JointAngle = [theta1 theta2 theta3]
 end   
 
 
-%%  畫圖 畫機械手臂 輸入: 自由度，各關節的位置，各關節的座標
-function  DrawRobotManipulator(dof, Positions)
+
+function  DrawRobotManipulator(link_length, dof, Positions)
 hold on;
 for i = 1 : dof 
     plotLP(Positions(:,i),Positions(:,i+1))
 end
+% Base table
+v = (sum(link_length)/length(link_length)).* 0.5 .* ...
+    [-1 -1 -1; 1 -1 -1; 1 1 -1; -1 1 -1; -1 -1 0 ;1 -1 0; 1 1 0; -1 1 0];
+f = [1 2 3 4; 5 6 7 8; 1 2 6 5; 2 3 7 6; 3 4 8 7; 4 1 5 8];
+patch('Vertices', v, 'Faces', f, 'FaceColor', 'black');axis equal;
+
 axis([-10 10 -10 10 -10 10])
 grid on;
 view(3);
