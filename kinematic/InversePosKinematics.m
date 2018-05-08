@@ -17,13 +17,16 @@ function  JointAngles = InversePosKinematics(Link_length, Target_point)
     
 
 %}
+
 xc = Target_point(1);
 yc = Target_point(2);
 zc = Target_point(3);
 L1 = Link_length(1);
 L2 = Link_length(2);
 L3 = Link_length(3);
-
+if length(Link_length) == 6
+    L3 = Link_length(4)
+end
 
 theta1 = atan2(yc,xc);
 C_thetaD = (L2^2 + L3^2 - (xc^2 + yc^2) - (zc - L1)^2) / (2*L2*L3);

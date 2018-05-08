@@ -16,8 +16,7 @@ function  [Positions, R0c] = ForwardKinematics(JointAngles, DH_table, flat_drawA
         end
         % return
         Positions(:, i+1) = PositionVector
-        R0c = RotationMatrix
     end
-
+            R0c = 
     
 end
