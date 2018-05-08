@@ -1,4 +1,4 @@
-function  JointAngles = InverseKinematicsForXYZ(Link_length, Target_point)
+function  JointAngles = InversePosKinematics(Link_length, Target_point)
 %{
     Args:
         Inputs:
@@ -17,12 +17,12 @@ function  JointAngles = InverseKinematicsForXYZ(Link_length, Target_point)
     
 
 %}
-xc = Target_point(1)
-yc = Target_point(2)
-zc = Target_point(3)
-L1 = Link_length(1)
-L2 = Link_length(2)
-L3 = Link_length(3)
+xc = Target_point(1);
+yc = Target_point(2);
+zc = Target_point(3);
+L1 = Link_length(1);
+L2 = Link_length(2);
+L3 = Link_length(3);
 
 
 theta1 = atan2(yc,xc);
