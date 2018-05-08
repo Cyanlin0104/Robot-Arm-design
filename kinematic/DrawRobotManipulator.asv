@@ -2,7 +2,7 @@ function  DrawRobotManipulator(Link_length, Positions)
 %{
  Args:
     Inputs:
-        link_length: An array in which element should be a interger 
+        link_length: A array in which element should be a interger 
                         that represent length of each link.
                      (Note that the size of array should be dof.)
         Positions:  A (3 x dof+1) Matrix, in which each column is the
@@ -12,13 +12,10 @@ function  DrawRobotManipulator(Link_length, Positions)
     Outputs:
         None.
 %}
-dof = size(Positions, 2) - 1;
-if dof ~= length(Link_length)
-    dof
-    length(Link_length)
-    disp('the columns of Positions and length of Link_length should be dof.');
-    return;
-end
+dof = size(Positions, 1) - 1;
+if dof ~= length(Link_length):
+    disp('the size of array should be dof.')
+    return
 hold on;
 for i = 1 : length(Link_length)
     plotLP(Positions(:,i),Positions(:,i+1))
