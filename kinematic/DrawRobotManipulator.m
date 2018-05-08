@@ -14,7 +14,6 @@ function  DrawRobotManipulator(Link_length, Positions)
 %}
 dof = size(Positions, 2) - 1;
 if dof ~= length(Link_length)
-    dof
     length(Link_length)
     disp('the columns of Positions and length of Link_length should be dof.');
     return;
@@ -29,7 +28,7 @@ v = (sum(Link_length)/length(Link_length)).* 0.5 .* ...
 f = [1 2 3 4; 5 6 7 8; 1 2 6 5; 2 3 7 6; 3 4 8 7; 4 1 5 8];
 patch('Vertices', v, 'Faces', f, 'FaceColor', 'black');axis equal;
 
-max_length = max(Link_length);
+max_length = sum(Link_length);
 axis([-max_length max_length -max_length max_length -max_length max_length])
 grid on;
 view(3);
