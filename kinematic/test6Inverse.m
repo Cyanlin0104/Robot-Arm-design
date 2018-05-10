@@ -6,11 +6,15 @@ DH_table = [[0               pi/2       Link_length(1)        pi/2];
             [0              -pi/2                   0            0];
             [0                  0       Link_length(6)           0]];
         
-initJointAngles = [-90 30 30 -60 -60 0] * pi / 180;
-[initPositions, R06] = ForwardKinematics(initJointAngles, DH_table, false);
-od = [5.348 -1.5 5.5311];
-oc = decoupling(od, R06, Link_length(6));
+initJointAngles = [0 0 0 0 0 0] * pi / 180;
+clf;
+[initPositions, R] = ForwardKinematics(initJointAngles, DH_table, false);
+od = [0 4 1];
+initR06 = R(:,:,7);
+R
+oc = decoupling(od, initR06, Link_length(6));
 JointAngles0_3 = InversePosKinematics(Link_length, oc);
-JointAngles = [JointAngles0_3 0 0 0]
-[Positions, R06] = ForwardKinematics(JointAngles, DH_table, true);
+JointAngles = [JointAngles0_3  0 0 0]
+[Positions, R] = ForwardKinematics(JointAngles, DH_table, true);
+R
 DrawRobotManipulator(Link_length, Positions);

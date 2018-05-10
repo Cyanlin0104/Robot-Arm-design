@@ -14,7 +14,7 @@ if isempty(inputs)
 end
 clf;
 JointAngles = inputs  * pi / 180;
-[Positions, R0c] = ForwardKinematics(JointAngles, DH_table, true);
+[Positions, R] = ForwardKinematics(JointAngles, DH_table, true);
 DrawRobotManipulator(Link_length, Positions);
 end
 
