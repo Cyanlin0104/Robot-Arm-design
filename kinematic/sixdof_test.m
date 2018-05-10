@@ -1,3 +1,0 @@
-clc;
-clf;
-kinematics6();

@@ -5,16 +5,17 @@ DH_table = [[0               pi/2       Link_length(1)        pi/2];
             [0               pi/2       Link_length(4)           0];
             [0              -pi/2                   0            0];
             [0                  0       Link_length(6)           0]];
-prompt = 'Enter an array indicating Joint angles(in degree) >> ex: [90 60 30 30 50 30]: \n';
-f = figure('name','Manipulator simulation');
-while(true)
-inputs = input(prompt);
-if isempty(inputs)
-    break;
-end
-clf;
-JointAngles = inputs  * pi / 180;
+        
+initJointAngles = [0 0 0 0 0 0] * pi / 180;
+[initPositions, R] = ForwardKinematics(initJointAngles, DH_table, false);
+od = [0 4 1];
+R06 = 
+oc = decoupling(od, initR06, Link_length(6));
+JointAngles0_3 = InversePosKinematics(Link_length, oc);
+JointAngles = [JointAngles0_3  0 0 0]
 [Positions, R] = ForwardKinematics(JointAngles, DH_table, true);
-DrawRobotManipulator(Link_length, Positions);
-end
+R03 = R(:,:,4);
+R30 = R03';
+R36 = R30 * initR06;
 
+DrawRobotManipulator(Link_length, Positions);

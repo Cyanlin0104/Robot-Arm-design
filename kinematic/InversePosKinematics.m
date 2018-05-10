@@ -25,7 +25,7 @@ L1 = Link_length(1);
 L2 = Link_length(2);
 L3 = Link_length(3);
 if length(Link_length) == 6
-    L3 = Link_length(4)
+    L3 = Link_length(4);
 end
 
 theta1 = atan2(yc,xc);
