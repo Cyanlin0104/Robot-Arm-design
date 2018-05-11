@@ -6,15 +6,21 @@ DH_table = [[0               pi/2       Link_length(1)        pi/2];
             [0              -pi/2                   0            0];
             [0                  0       Link_length(6)           0]];
 prompt = 'Enter an array indicating Joint angles(in degree) >> ex: [90 60 30 30 50 30]: \n';
-f = figure('name','Manipulator simulation');
+%f = figure('name','Manipulator simulation');
 while(true)
 inputs = input(prompt);
 if isempty(inputs)
     break;
 end
-clf;
+%clf;
 JointAngles = inputs  * pi / 180;
-[Positions, R] = ForwardKinematics(JointAngles, DH_table, true);
+[Positions, R] = ForwardKinematics(JointAngles, DH_table, false);
+tR03 = R(:,:,4);
+tR06 = R(:,:,7);
+tR30 = tR03';
+tR36 = tR30 * tR06;
+tow = Positions(:,5);
+tP = Positions(:,7);
 DrawRobotManipulator(Link_length, Positions);
 end
 

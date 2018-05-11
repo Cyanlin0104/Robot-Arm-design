@@ -16,7 +16,6 @@ dof = size(Positions, 2) - 1;
 if dof ~= length(Link_length)
     length(Link_length)
     disp('the columns of Positions and length of Link_length should be dof.');
-    return;
 end
 hold on;
 for i = 1 : length(Link_length)
@@ -30,6 +29,10 @@ patch('Vertices', v, 'Faces', f, 'FaceColor', 'black');axis equal;
 
 max_length = sum(Link_length);
 axis([-max_length max_length -max_length max_length -max_length max_length])
+
+xlabel("x");
+ylabel("y");
+zlabel("z");
 grid on;
 view(3);
 end

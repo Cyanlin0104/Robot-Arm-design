@@ -28,9 +28,9 @@ if length(Link_length) == 6
     L3 = Link_length(4);
 end
 
-theta1 = atan2(yc,xc);
+theta1 = atan2(-xc, yc);
 C_thetaD = (L2^2 + L3^2 - (xc^2 + yc^2) - (zc - L1)^2) / (2*L2*L3);
-theta3 =  acos(C_thetaD) - pi;
+theta3 =  pi - acos(C_thetaD);
 theta2 = atan2(zc-L1,sqrt(xc^2 + yc^2)) - atan2(L3*sin(theta3),L2+L3*cos(theta3));
 % return 
 JointAngles = [theta1 theta2 theta3]

@@ -1,4 +1,4 @@
-function R = GenerateRotationMatrix(EulerAngles, rotationOrder)
+function [R, Rp, Rr, Ry] = GenerateRotationMatrix(EulerAngles, rotationOrder)
 p = EulerAngles(1);
 r = EulerAngles(2);
 y = EulerAngles(3);
