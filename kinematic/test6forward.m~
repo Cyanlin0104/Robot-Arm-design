@@ -8,14 +8,11 @@ if isempty(inputs)
 end
 %clf;
 JointAngles = inputs  * pi / 180;
-[Positions, R] = ForwardKinematics(JointAngles, DH_table, true);
-% given condition 
-tR06 = R(:,:,7)
-tP = Positions(:,7)
-% groundTruth
+[Positions, R] = ForwardKinematics(JointAngles, DH_table, false);
 tR03 = R(:,:,4)
+tR06 = R(:,:,7)
 tow = Positions(:,5)
-tJointAngles = inputs
+tP = Positions(:,7)
 DrawRobotManipulator(Link_length, Positions);
 end
 
