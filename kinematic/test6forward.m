@@ -1,10 +1,4 @@
-Link_length = [1 3 0 3 0 2];  % Jpint (3 and 4),(5 and 6) are coupled and jointed togeth
-DH_table = [[0               pi/2       Link_length(1)        pi/2];
-            [Link_length(2)     0                   0            0];
-            [0              -pi/2                   0        -pi/2];
-            [0               pi/2       Link_length(4)           0];
-            [0              -pi/2                   0            0];
-            [0                  0       Link_length(6)           0]];
+[DH_table, Link_length] = get6axisParam();
 prompt = 'Enter an array indicating Joint angles(in degree) >> ex: [90 60 30 30 50 30]: \n';
 %f = figure('name','Manipulator simulation');
 while(true)
@@ -14,13 +8,14 @@ if isempty(inputs)
 end
 %clf;
 JointAngles = inputs  * pi / 180;
-[Positions, R] = ForwardKinematics(JointAngles, DH_table, false);
-tR03 = R(:,:,4);
-tR06 = R(:,:,7);
-tR30 = tR03';
-tR36 = tR30 * tR06;
-tow = Positions(:,5);
-tP = Positions(:,7);
+[Positions, R] = ForwardKinematics(JointAngles, DH_table, true);
+% given condition 
+tR06 = R(:,:,7)
+tP = Positions(:,7)
+% groundTruth
+tR03 = R(:,:,4)
+tow = Positions(:,5)
+tJointAngles = inputs
 DrawRobotManipulator(Link_length, Positions);
 end
 

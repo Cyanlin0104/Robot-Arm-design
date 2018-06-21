@@ -30,8 +30,13 @@ end
 
 theta1 = atan2(-xc, yc);
 C_thetaD = (L2^2 + L3^2 - (xc^2 + yc^2) - (zc - L1)^2) / (2*L2*L3);
+<<<<<<< HEAD
 theta3 =  pi - acos(C_thetaD);
 theta2 = atan2(zc-L1, sqrt(xc^2 + yc^2)) - atan2(L3*sin(theta3) ,L2+L3*cos(theta3));
+=======
+theta3 = pi- acos(C_thetaD);
+theta2 = atan2(zc-L1,sqrt(xc^2 + yc^2)) - atan2(L3*sin(theta3),L2+L3*cos(theta3));
+>>>>>>> 0d5ffcecf53822001d6e92aa028487a80bdc7092
 % return 
 JointAngles = [theta1 theta2 theta3]
 end   

@@ -9,7 +9,11 @@ DH_table = [0                pi/2              Link_length(1)             pi/2;
             Link_length(3)   0                 0                           0];
 
 % Set groundtruth rotation angle for each joint
+<<<<<<< HEAD
 tJointAngles = [ 30 50 90 ] * pi / 180 ;
+=======
+tJointAngles = [ 30 -90 -30 ] * pi / 180 ;
+>>>>>>> 0d5ffcecf53822001d6e92aa028487a80bdc7092
 
 % compute forward and record groundtruth
 [tPos, tR] = ForwardKinematics(tJointAngles, DH_table, false);
@@ -30,20 +34,14 @@ if tp ~= p
     p
     return
 end
-if ~checkMatrix(Pos,tPos)
-    disp("Positions error, please check InversePosKinematics")
-    JointAngles
-    tJointAngles
-    Pos
-    tPos  
-    
-end
+disp('target Position test PASS!');
 if ~checkMatrix(R, tR)
     disp("RotationMatrix error, please check InversePosKinematics")
     R
     tR
     return
 end
+disp('RotationMatrix test PASS!');
 if ~checkMatrix(JointAngles, tJointAngles)
     disp("JointAngles different, please comfirm values");
     JointAngles
