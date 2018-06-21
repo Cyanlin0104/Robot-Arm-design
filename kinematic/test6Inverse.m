@@ -30,14 +30,24 @@ theta6 = atan2(R36(3,2),-R36(3,1));
 JointAngles = [JointAngles0_3 theta4 theta5 theta6];
 [PositionsUpdate4_6, R] = ForwardKinematics(JointAngles, DH_table, false);
 JointAngles = JointAngles .* 180 /pi;
-if ow ~= tow'
-    disp(' ow !wrong!');
+if checkMatrix(ow, tow')
+    disp('ow error');
+    ow
+    tow'
 end
-if (sum(sum(R03 ~= tR03,1),2) ~= 0)
+if checkMatrix(R03, tR03)
     disp(' R03 wrong');
+    R03
+    tR03
+    return
 end
-if (sum(sum(R03 ~= tR03,1),2) ~= 0)
+if checkMatrix(R36, tR36)
     disp(' R36 wrong');
+    R36
+    tR36
+    return
 end
-%DrawRobotManipulator(Link_length, PositionsUpdate4_6);
+disp('test PASS')
+
+DrawRobotManipulator(Link_length, PositionsUpdate4_6);
 
