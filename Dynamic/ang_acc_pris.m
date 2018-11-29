@@ -1,0 +1,3 @@
+function angular_acceleration = ang_acc_pris(previous_angular_acceleration,rotation_matrix)
+angular_acceleration=rotation_matrix*previous_angular_acceleration;
+end
